@@ -1,0 +1,311 @@
+*title* MapThin: Thinning your Map Files for Linkage Analyses! */title*
+*stylefile* mapthinstyles.css */stylefile*
+*logo* mapthinlogo.png */logo*
+*logowidth* 200 */logowidth*
+
+*webpage*
+
+*webpage-name* index */webpage-name*
+
+*webpage-title* Home */webpage-title*
+
+<h1>Welcome to the webpage of MapThin!</h1>
+
+<h2>Documentation</h2>
+
+* Documentation for MapThin is taken from these web pages and may be downloaded from here: <a href="mapthin.pdf">mapthin.pdf</a>. *
+
+<h2>Executables</h2>
+
+*tablel*
+*tr* Platform & File */tr*
+*tr* *html* Linux (x86_64) */html* *tex* Linux (x86\_64) */tex* & *html* <a href="mapthin-v1.11-linux-x86_64.zip">mapthin-v1.11-linux-x86_64.zip</a> */html* *tex* mapthin-v1.11-linux-x86\_64.zip */tex* */tr*
+*tr* *html* Linux (x86_32) */html* *tex* Linux (x86\_32) */tex* & *html* <a href="mapthin-v1.11-linux-x86_32.zip">mapthin-v1.11-linux-x86_32.zip</a> */html* *tex* mapthin-v1.11-linux-x86\_32.zip */tex* */tr*
+*tr* *html* Windows (x86_64) */html* *tex* Windows (x86\_64) */tex* & *html* <a  href="mapthin-v1.11-windows-x86_64.zip">mapthin-v1.11-windows-x86_64.zip</a> */html* *tex* mapthin-v1.11-windows-x86\_64.zip */tex* */tr*
+*tr* *html* Windows (x86_32) */html* *tex* Windows (x86\_32) */tex* & *html* <a  href="mapthin-v1.11-windows-x86_32.zip">mapthin-v1.11-windows-x86_32.zip</a> */html* *tex* mapthin-v1.11-windows-x86\_32.zip */tex* */tr*
+*/tablel*
+
+<h2>Source Code</h2>
+
+* Source code for MapThin (C/C++) may be downloaded from here: <a href="mapthin-v1.11-code.zip">mapthin-v1.11-code.zip</a>. *
+
+<h2>Contact</h2>
+
+ * Please contact <a href="http://www.staff.ncl.ac.uk/richard.howey/">Richard Howey</a> with any queries. *
+
+<h2>Citation</h2>
+
+*codeexample*
+@Misc{mapthin,
+author={Howey, R and Cordell, H J},
+title={MapThin},
+year={2011},
+note={{http://www.staff.ncl.ac.uk/richard.howey/mapthin/}}
+}
+*/codeexample*
+
+*
+Copyright, 2011-2014 Richard Howey and Heather Cordell, GNU General Public License, version 3.
+*
+
+*/webpage*
+
+***************************************
+
+*section*
+
+*section-name* introduction */section-name*
+
+*section-title* Introduction */section-title*
+
+*
+Do you have the problem that you want to do a linkage analysis but your map file is massive and far too big for your needs? Do you wish to reduce false positive rates and speed up execution times? Firstly you can use *html* <a href="http://pngu.mgh.harvard.edu/~purcell/plink/thresh.shtml#maf">PLINK</a>&nbsp; */html* *tex* PLINK$\:$ */tex* to keep only the common SNPs by typing something like the following. 
+*
+
+*codeexample*
+plink --file mydata --maf 0.4 --recode --out mydata-frequent
+*/codeexample*
+
+*
+We could also (optionally) try and remove SNPs that are in strong linkage disequilibrium (LD) with one another by typing something like the following in *html* <a href="http://pngu.mgh.harvard.edu/~purcell/plink/summary.shtml#prune">PLINK</a>. */html* *tex* PLINK. */tex*
+*
+
+*
+*tex*
+*codeexample*
+plink --file mydata-frequent --indep 50 5 2 --out pruned-snp-list
+
+plink --file mydata-frequent --extract pruned-snp-list.prune.in 
+      --recode --out mydata-pruned
+*/codeexample*
+*/tex*
+
+*html*
+*codeexample*
+plink --file mydata-frequent --indep 50 5 2 --out pruned-snp-list
+
+plink --file mydata-frequent --extract pruned-snp-list.prune.in --recode --out mydata-pruned
+*/codeexample*
+*/html*
+*
+
+*
+Unfortunately, this only gets you so far - the map file still contains too many SNPs. What can one do? Now you can use MapThin to thin your map file! 
+*
+
+*codeexample*
+./mapthin mydata-frequent.map thinned-data.map
+*/codeexample*
+
+*
+Note that running MapThin against your map file using genetic distance (cM) (the default) should remove any pairs of SNPs that are too correlated, making the PLINK step to remove SNPs that are in strong LD unnecessary.
+*
+
+
+*
+The program MapThin thins map files by simply taking the first SNP and then moving a genetic marker along the list of SNPs and taking the closest SNP to this marker for each step (or second closest if the SNP is already chosen). The length of this marker is determined by setting the *q*SNPs per cM*/q* option. It is also possible to choose an absolute number of SNPs to keep or a percentage of SNPs to keep. These options work by searching for a suitable length for the marker step. There is no guarantee that the thinned map file will contain the exact number or percent of SNPs required, but should be very close. Extreme thinning options that are near to 0 or 100 percent may fail.   
+*
+
+*
+In the case where genetic distances are not available it may be useful to thin the SNPs on the basis of base pair position instead of genetic distance. Therefore, an option is included to thin the SNPs using base pair position instead of genetic distance. This option works the same as for genetic distance but uses the values in the base pair position column of the map file instead of the genetic distance column.  
+*
+
+*/section*
+
+***************************
+***************************************
+
+*section*
+
+*section-name* installation */section-name*
+
+*section-title* Installation */section-title*
+
+*
+Download an executable file from the *html* <a href="index.html">home</a>&nbsp; */html* *tex* home$\:$ */tex* page for your system and off you go, or do the following.
+*
+
+*numlist*
+
+*item* Download the code from the home page.
+
+*item* Compile it by typing something like the following:
+ 
+*codeexample* g++ -O3 *.cpp -o mapthin */codeexample*
+
+*item* Start thinning your map files with MapThin!
+
+*/numlist*
+
+*/section*
+
+***************************
+
+*section*
+
+*section-name*
+using
+*/section-name*
+
+*section-title*
+Using MapThin
+*/section-title*
+
+*
+The program MapThin takes a PLINK map file as input (either *i* .map */i* or *i* .bim */i*) and produces another map file with less SNPs than the original. The SNPs in the map file should be ordered by chromosome and then by genetic distance (cM) (or base pair position if the *code* -b */code* option is used). The SNPs that are kept in the new map file are chosen to be as evenly spaced as possible.
+*
+
+* *b* Note: */b* The units for genetic distance in PLINK files is by default morgans (M), whereas MapThin uses centimorgans (cM) and requires genetic distance data to be in cM. The *code* --cm */code* option in PLINK can be used to specify centimorgans. *
+
+*
+Basic usage of the program is given by typing:
+*
+
+*codeexample*
+./mapthin data.map thinned.map
+*/codeexample*
+
+*
+This will thin the map file using the default value of 2.4 SNPs per cM. The number of SNPs to take from the original may be set by setting one of three options: (i) the SNPs per cM, (ii) the absolute number of SNPs to keep, or (iii) The percentage of SNPs to keep. Typing *code* mapthin */code* with no options will output usage details:
+*
+
+*codeexample*
+MapThin (v1.02): Thinning your map files!
+------------------------------------------------------------
+Copyright 2012 Richard Howey, GNU General Public License, v3
+Institute of Genetic Medicine, Newcastle University
+
+Usage:
+         ./mapthin [options] data-in.map data-out.map
+
+Options:
+  -t x          -- SNPs per cM, x
+  -s y          -- Total no. of SNPs to keep, y
+  -p z          -- Percentage of SNPs to keep, z
+  -b [w]        -- Use base pair position [with w SNPs per 10^6 bpp in file]
+  -n            -- Output the name of the SNPs only
+  -so           -- suppress output to screen
+
+Default Options:
+  -t 2.4
+*/codeexample*
+
+*/section*
+
+
+********************************
+*section*
+
+*section-name*
+example
+*/section-name*
+
+*section-title*
+MapThin Examples
+*/section-title*
+
+*
+Suppose we have a map file, *i* myfile.map */i*, with 29753 SNPs and we wish to create a thinned map file with only 2000 SNPs (very thin for this example) then we would type the following.
+*
+
+*codeexample*
+./mapthin -s 2000 myfile.map mythinnedfile.map
+*/codeexample*
+
+*
+This will create output similar to the following.
+*
+
+*codeexample*
+MapThin: Thinning your map files!
+------------------------------------------------------------
+Copyright 2011 Richard Howey, GNU General Public License, v3
+Institute of Genetic Medicine, Newcastle University
+
+Parameters:
+Input file: myfile.map
+Output file: mythinnedfile.map
+Total SNPs to keep: 2000
+
+Statistics: 
+Total number of SNPs in original file: 29753
+Number of SNPs in thinned file: 2000 (6.72201%)
+Number of SNPs with missing genetic distances: 7
+        (Written to file missingGeneticDis.txt)
+
+SNPs per cM: 0.577851
+Mean genetic distance between SNPs: 1.71345 cM
+St. dev. of genetic distance between SNPs: 0.26895 cM
+Range of genetic distance between SNPs: (0.044079, 4.86245)
+*/codeexample*
+
+*
+MapThin will output some information on the thinned map file and will also report any SNPs in the map file with missing genetic distances. Figure *figref* orig-fig */figref* shows the genetic distances of the SNPs in the original map file and figure *figref* thin-fig */figref* shows that of the thinned map file.
+*
+
+*figure*
+originalMap.png
+
+*caption*
+Plot of the genetic distance against the SNP number for the original SNP file. 
+*/caption*
+*label* orig-fig */label*
+*width* 200 */width*
+*/figure*
+
+
+*figure*
+thinnedMap.png
+
+*caption*
+Plot of the genetic distance against the SNP number for the thinned SNP file. 
+*/caption*
+*label* thin-fig */label*
+*width* 200 */width*
+*/figure*
+
+*
+*b* Other Example Commands */b*
+*
+
+*numlist*
+
+*item* *b* Keep 2.6 SNPs per cM.*/b*
+
+*codeexample*
+./mapthin -t 2.6 myfile.map mythinnedfile.map
+*/codeexample*
+
+*item* *b* Keep 45.6*percent* of the SNPs in the map file.*/b*
+
+*codeexample*
+./mapthin -p 45.6 myfile.map mythinnedfile.map
+*/codeexample*
+
+*item* *b* Only output SNP names to the thinned map file.*/b*
+
+*codeexample*
+./mapthin -n myfile.map mythinnedfile.map
+*/codeexample*
+
+*item* *b* Keep 5.4 SNPs per $10^6$ base pair position of the SNPs in the map file.*/b*
+
+*codeexample*
+./mapthin -b 5.4 myfile.map mythinnedfile.map
+*/codeexample*
+
+*item* *b* Keep 23.7*percent* of the SNPs in the map file using base pair position instead of genetic distance.*/b*
+
+*codeexample*
+./mapthin -b -p 23.7 myfile.map mythinnedfile.map
+*/codeexample*
+
+*item* *b* Keep 4500 of the SNPs in the map file using base pair position instead of genetic distance.*/b*
+
+*codeexample*
+./mapthin -b -s 4500 myfile.map mythinnedfile.map
+*/codeexample*
+
+*/numlist*
+
+*/section*

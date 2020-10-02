@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>MapThin: Thinning your Map Files for Linkage Analyses!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="mapthinstyles.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+<!-- Begin Header -->
+<div id="header">
+<table><tr>
+<td>
+<img width="200" src="mapthinlogo.png" alt="MapThin: Thinning your Map Files for Linkage Analyses!"/>
+</td>
+<td>
+<p style="margin-left: 1em;">MapThin: Thinning your Map Files for Linkage Analyses!</p>
+</td></tr>
+</table>
+</div>
+<!-- End Header -->
+<!-- Begin Menu Navigation -->
+<ul id="menunav">
+<li><a href="index.html">Home</a></li>
+</ul>
+<!-- End Menu Navigation -->
+
+</td></tr>
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0"><tr>
+<td valign="top">
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+<!-- Begin Contents Navigation -->
+<div id="navcontainer">
+<ul>
+<li><a href="introduction.html">1 Introduction</a>
+</li>
+<li><a href="installation.html">2 Installation</a>
+</li>
+<li><a href="using.html">3 Using MapThin</a>
+</li>
+<li><a href="example.html">4 MapThin Examples</a>
+</li>
+</ul>
+</div>
+<!-- End Contents Navigation -->
+</div>
+<!-- End Left Column -->
+</td>
+<td valign="top">
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+<h1>4 MapThin Examples</h1>
+<p>
+Suppose we have a map file, <i>myfile.map</i>, with 29753 SNPs and we wish to create a thinned map file with only 2000 SNPs (very thin for this example) then we would type the following. </p>
+<pre>
+./mapthin -s 2000 myfile.map mythinnedfile.map
+</pre>
+<p>
+This will create output similar to the following. </p>
+<pre>
+MapThin: Thinning your map files!
+------------------------------------------------------------
+Copyright 2011 Richard Howey, GNU General Public License, v3
+Institute of Genetic Medicine, Newcastle University
+
+Parameters:
+Input file: myfile.map
+Output file: mythinnedfile.map
+Total SNPs to keep: 2000
+
+Statistics: 
+Total number of SNPs in original file: 29753
+Number of SNPs in thinned file: 2000 (6.72201%)
+Number of SNPs with missing genetic distances: 7
+        (Written to file missingGeneticDis.txt)
+
+SNPs per cM: 0.577851
+Mean genetic distance between SNPs: 1.71345 cM
+St. dev. of genetic distance between SNPs: 0.26895 cM
+Range of genetic distance between SNPs: (0.044079, 4.86245)
+</pre>
+<p>
+MapThin will output some information on the thinned map file and will also report any SNPs in the map file with missing genetic distances. Figure 1 shows the genetic distances of the SNPs in the original map file and figure 2 shows that of the thinned map file. </p>
+<div id="fig"><a href="originalMap.png"><img src="originalMap.png" border="0" class="figimg" width="200"></a><br />
+<br />
+Figure 1. Plot of the genetic distance against the SNP number for the original SNP file.
+</div>
+<div id="fig"><a href="thinnedMap.png"><img src="thinnedMap.png" border="0" class="figimg" width="200"></a><br />
+<br />
+Figure 2. Plot of the genetic distance against the SNP number for the thinned SNP file.
+</div>
+<p>
+<b>Other Example Commands</b> </p>
+<ol>
+<li>
+<b>Keep 2.6 SNPs per cM.</b> <pre>
+./mapthin -t 2.6 myfile.map mythinnedfile.map
+</pre>
+</li><li>
+<b>Keep 45.6% of the SNPs in the map file.</b> <pre>
+./mapthin -p 45.6 myfile.map mythinnedfile.map
+</pre>
+</li><li>
+<b>Only output SNP names to the thinned map file.</b> <pre>
+./mapthin -n myfile.map mythinnedfile.map
+</pre>
+</li><li>
+<b>Keep 5.4 SNPs per <img src="http://latex.codecogs.com/png.latex?\inline 10^6 \small " alt="10^6"/> base pair position of the SNPs in the map file.</b> <pre>
+./mapthin -b 5.4 myfile.map mythinnedfile.map
+</pre>
+</li><li>
+<b>Keep 23.7% of the SNPs in the map file using base pair position instead of genetic distance.</b> <pre>
+./mapthin -b -p 23.7 myfile.map mythinnedfile.map
+</pre>
+</li><li>
+<b>Keep 4500 of the SNPs in the map file using base pair position instead of genetic distance.</b> <pre>
+./mapthin -b -s 4500 myfile.map mythinnedfile.map
+</pre>
+</li>
+</ol>
+</tr></table>
+<!-- End Wrapper -->
+</td></tr></table>
+</div>
+ <!-- Start of StatCounter Code for Default Guide --> <script type="text/javascript"> var sc_project=7053568; var sc_invisible=1; var sc_security="113f672e"; </script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script> <noscript><div class="statcounter"><a title="tumblr counter" href="http://statcounter.com/tumblr/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/7053568/0/113f672e/1/" alt="tumblr counter"></a></div></noscript> <!-- End of StatCounter Code for Default Guide</body>
+</html>

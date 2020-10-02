@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>MapThin: Thinning your Map Files for Linkage Analyses!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="mapthinstyles.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+<!-- Begin Header -->
+<div id="header">
+<table><tr>
+<td>
+<img width="200" src="mapthinlogo.png" alt="MapThin: Thinning your Map Files for Linkage Analyses!"/>
+</td>
+<td>
+<p style="margin-left: 1em;">MapThin: Thinning your Map Files for Linkage Analyses!</p>
+</td></tr>
+</table>
+</div>
+<!-- End Header -->
+<!-- Begin Menu Navigation -->
+<ul id="menunav">
+<li><a href="index.html">Home</a></li>
+</ul>
+<!-- End Menu Navigation -->
+
+</td></tr>
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0"><tr>
+<td valign="top">
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+<!-- Begin Contents Navigation -->
+<div id="navcontainer">
+<ul>
+<li><a href="introduction.html">1 Introduction</a>
+</li>
+<li><a href="installation.html">2 Installation</a>
+</li>
+<li><a href="using.html">3 Using MapThin</a>
+</li>
+<li><a href="example.html">4 MapThin Examples</a>
+</li>
+</ul>
+</div>
+<!-- End Contents Navigation -->
+</div>
+<!-- End Left Column -->
+</td>
+<td valign="top">
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+<h1>3 Using MapThin</h1>
+<p>
+The program MapThin takes a PLINK map file as input (either <i>.map</i> or <i>.bim</i>) and produces another map file with less SNPs than the original. The SNPs in the map file should be ordered by chromosome and then by genetic distance (cM) (or base pair position if the <tt>-b</tt> option is used). The SNPs that are kept in the new map file are chosen to be as evenly spaced as possible. </p>
+<p>
+<b>Note:</b> The units for genetic distance in PLINK files is by default morgans (M), whereas MapThin uses centimorgans (cM) and requires genetic distance data to be in cM. The <tt>--cm</tt> option in PLINK can be used to specify centimorgans. </p>
+<p>
+Basic usage of the program is given by typing: </p>
+<pre>
+./mapthin data.map thinned.map
+</pre>
+<p>
+This will thin the map file using the default value of 2.4 SNPs per cM. The number of SNPs to take from the original may be set by setting one of three options: (i) the SNPs per cM, (ii) the absolute number of SNPs to keep, or (iii) The percentage of SNPs to keep. Typing <tt>mapthin</tt> with no options will output usage details: </p>
+<pre>
+MapThin (v1.02): Thinning your map files!
+------------------------------------------------------------
+Copyright 2012 Richard Howey, GNU General Public License, v3
+Institute of Genetic Medicine, Newcastle University
+
+Usage:
+         ./mapthin [options] data-in.map data-out.map
+
+Options:
+  -t x          -- SNPs per cM, x
+  -s y          -- Total no. of SNPs to keep, y
+  -p z          -- Percentage of SNPs to keep, z
+  -b [w]        -- Use base pair position [with w SNPs per 10^6 bpp in file]
+  -n            -- Output the name of the SNPs only
+  -so           -- suppress output to screen
+
+Default Options:
+  -t 2.4
+</pre>
+<br />
+<div class="prevnext"><span class="left"><a href="installation.html">&lt;-prev</a>
+</span><span class="right"><a href="example.html">next-&gt;</a>
+</span></div><!-- End Right Column -->
+</div>
+</td>
+</tr></table>
+<!-- End Wrapper -->
+</td></tr></table>
+</div>
+ <!-- Start of StatCounter Code for Default Guide --> <script type="text/javascript"> var sc_project=7053568; var sc_invisible=1; var sc_security="113f672e"; </script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script> <noscript><div class="statcounter"><a title="tumblr counter" href="http://statcounter.com/tumblr/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/7053568/0/113f672e/1/" alt="tumblr counter"></a></div></noscript> <!-- End of StatCounter Code for Default Guide</body>
+</html>

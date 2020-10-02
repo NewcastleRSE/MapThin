@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>MapThin: Thinning your Map Files for Linkage Analyses!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="mapthinstyles.css" />
+<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+<!-- Begin Header -->
+<div id="header">
+<table><tr>
+<td>
+<img width="200" src="mapthinlogo.png" alt="MapThin: Thinning your Map Files for Linkage Analyses!"/>
+</td>
+<td>
+<p style="margin-left: 1em;">MapThin: Thinning your Map Files for Linkage Analyses!</p>
+</td></tr>
+</table>
+</div>
+<!-- End Header -->
+<!-- Begin Menu Navigation -->
+<ul id="menunav">
+<li><a href="index.html">Home</a></li>
+</ul>
+<!-- End Menu Navigation -->
+
+</td></tr>
+<tr><td>
+<table border="0" cellpadding="0" cellspacing="0"><tr>
+<td valign="top">
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+<!-- Begin Contents Navigation -->
+<div id="navcontainer">
+<ul>
+<li><a href="introduction.html">1 Introduction</a>
+</li>
+<li><a href="installation.html">2 Installation</a>
+</li>
+<li><a href="using.html">3 Using MapThin</a>
+</li>
+<li><a href="example.html">4 MapThin Examples</a>
+</li>
+</ul>
+</div>
+<!-- End Contents Navigation -->
+</div>
+<!-- End Left Column -->
+</td>
+<td valign="top">
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+<h1>1 Introduction</h1>
+<p>
+Do you have the problem that you want to do a linkage analysis but your map file is massive and far too big for your needs? Do you wish to reduce false positive rates and speed up execution times? Firstly you can use <a href="http://pngu.mgh.harvard.edu/~purcell/plink/thresh.shtml#maf">PLINK</a>&nbsp;to keep only the common SNPs by typing something like the following. </p>
+<pre>
+plink --file mydata --maf 0.4 --recode --out mydata-frequent
+</pre>
+<p>
+We could also (optionally) try and remove SNPs that are in strong linkage disequilibrium (LD) with one another by typing something like the following in <a href="http://pngu.mgh.harvard.edu/~purcell/plink/summary.shtml#prune">PLINK</a>.</p>
+<p>
+<pre>
+plink --file mydata-frequent --indep 50 5 2 --out pruned-snp-list
+
+plink --file mydata-frequent --extract pruned-snp-list.prune.in --recode --out mydata-pruned
+</pre>
+</p>
+<p>
+Unfortunately, this only gets you so far - the map file still contains too many SNPs. What can one do? Now you can use MapThin to thin your map file! </p>
+<pre>
+./mapthin mydata-frequent.map thinned-data.map
+</pre>
+<p>
+Note that running MapThin against your map file using genetic distance (cM) (the default) should remove any pairs of SNPs that are too correlated, making the PLINK step to remove SNPs that are in strong LD unnecessary. </p>
+<p>
+The program MapThin thins map files by simply taking the first SNP and then moving a genetic marker along the list of SNPs and taking the closest SNP to this marker for each step (or second closest if the SNP is already chosen). The length of this marker is determined by setting the &ldquo;SNPs per cM&rdquo; option. It is also possible to choose an absolute number of SNPs to keep or a percentage of SNPs to keep. These options work by searching for a suitable length for the marker step. There is no guarantee that the thinned map file will contain the exact number or percent of SNPs required, but should be very close. Extreme thinning options that are near to 0 or 100 percent may fail. </p>
+<p>
+In the case where genetic distances are not available it may be useful to thin the SNPs on the basis of base pair position instead of genetic distance. Therefore, an option is included to thin the SNPs using base pair position instead of genetic distance. This option works the same as for genetic distance but uses the values in the base pair position column of the map file instead of the genetic distance column. </p>
+<br />
+<div class="prevnext"><span class="right"><a href="installation.html">next-&gt;</a>
+</span></div><!-- End Right Column -->
+</div>
+</td>
+</tr></table>
+<!-- End Wrapper -->
+</td></tr></table>
+</div>
+ <!-- Start of StatCounter Code for Default Guide --> <script type="text/javascript"> var sc_project=7053568; var sc_invisible=1; var sc_security="113f672e"; </script> <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script> <noscript><div class="statcounter"><a title="tumblr counter" href="http://statcounter.com/tumblr/" target="_blank"><img class="statcounter" src="http://c.statcounter.com/7053568/0/113f672e/1/" alt="tumblr counter"></a></div></noscript> <!-- End of StatCounter Code for Default Guide</body>
+</html>

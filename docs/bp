@@ -1,0 +1,7 @@
+pdflatex mapthin.tex
+
+bibtex mapthin
+
+pdflatex mapthin.tex
+
+pdflatex mapthin.tex
