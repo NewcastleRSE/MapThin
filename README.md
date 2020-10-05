@@ -9,6 +9,6 @@ or look at the MapThin website which is easier to navigate and read:
 
 http://www.staff.ncl.ac.uk/richard.howey/mapthin
 
-If the website no longer exists then download the docs directory and view the website offline:
+If the website not available then download the docs directory and view the website offline:
 
 docs/index.html
